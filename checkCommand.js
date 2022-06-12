@@ -2,6 +2,7 @@ import path from 'path';
 import { stat } from 'fs/promises';
 import { comand_ls } from './comand_ls.mjs';
 import { comandCat } from './comand_cat.js';
+import { comandAdd } from './comand_add.js';
 
 export const checkCommand = async (data, currDir) => {
   const commandArray = ['up', 'cd', 'ls', 'cat', 'add', 'rn', 'cp', 'mv', 'rm'];
@@ -58,6 +59,14 @@ export const checkCommand = async (data, currDir) => {
       return [currDir, 'Invalid input\n'];
     } else {
       return [currDir, await comandCat(currDir, params[0])];
+    }
+  }
+
+  if (comand === 'add') {
+    if (params.length != 1) {
+      return [currDir, 'Invalid input\n'];
+    } else {
+      return [currDir, await comandAdd(currDir, params[0])];
     }
   }
 }
