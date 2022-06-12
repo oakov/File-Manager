@@ -16,8 +16,7 @@ export const comandMv = async (currDir, filePath, newDir) => {
   } else {
     newFilePath = currDir + path.sep + newDir + path.sep + file;
   }
-  console.log(oldFilePath)
-  console.log(newFilePath)
+
   const input = createReadStream(oldFilePath);
   const output = createWriteStream(newFilePath, { 'flags': 'wx' });
   const pp = new Promise((resolve) => {
