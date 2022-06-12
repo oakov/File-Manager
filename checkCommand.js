@@ -7,9 +7,10 @@ import { comandRn } from './comand_rn.js';
 import { comandCp } from './comand_cp.js';
 import { comandMv } from './comand_mv.js';
 import { comandRm } from './comand_rm.js';
+import { comandOs } from './comand_os.js';
 
 export const checkCommand = async (data, currDir) => {
-  const commandArray = ['up', 'cd', 'ls', 'cat', 'add', 'rn', 'cp', 'mv', 'rm'];
+  const commandArray = ['up', 'cd', 'ls', 'cat', 'add', 'rn', 'cp', 'mv', 'rm', 'os'];
   const [comand, ...params] = data.toString().replace(/\s+/g, ' ').trim().split(' ');
 
   if (!commandArray.includes(comand)) {
@@ -103,6 +104,22 @@ export const checkCommand = async (data, currDir) => {
       return [currDir, 'Invalid input\n'];
     } else {
       return [currDir, await comandRm(currDir, params[0])];
+    }
+  }
+
+  if (comand === 'os') {
+    if (params.length != 1) {
+      return [currDir, 'Invalid input\n'];
+    } else {
+      return [currDir, await comandOs(currDir, params[0])];
+    }
+  }
+
+  if (comand === 'hash') {
+    if (params.length != 1) {
+      return [currDir, 'Invalid input\n'];
+    } else {
+      return [currDir, await comandHash(currDir, params[0])];
     }
   }
 }
