@@ -1,21 +1,23 @@
 import path from 'path';
 import { createReadStream, createWriteStream } from 'fs';
+import { BrotliCompress } from 'zlib';
 
-export const comandCp = async (currDir, filePath, newDir) => {
+export const comandCompress = async (currDir, filePath, arcFile) => {
   let oldFilePath, newFilePath, file;
   if (filePath.match(':')) {
     oldFilePath = filePath;
-    file = filePath.split(path.sep).slice(-1);
+    // file = filePath.split(path.sep).slice(-1);
   } else {
     oldFilePath = currDir + path.sep + filePath;
-    file = filePath;
+    // file = filePath;
   }
-  if (newDir.match(':')) {
-    newFilePath = newDir + path.sep + file;
+  if (arcFile.match(':')) {
+    newFilePath = arcFile;
   } else {
-    newFilePath = currDir + path.sep + newDir + path.sep + file;
+    newFilePath = currDir + path.sep + arcFile;
   }
-
+  console.log(oldFilePath)
+  console.log(newFilePath)
   const input = createReadStream(oldFilePath);
   const output = createWriteStream(newFilePath, { 'flags': 'wx' });
   const pp = new Promise((resolve) => {
@@ -25,8 +27,8 @@ export const comandCp = async (currDir, filePath, newDir) => {
     output.on('error', () => {
       resolve(`Operation failed\n`);
     });
-    input.pipe(output);
-    input.on('end', () => { resolve('file was copied\n') });
+    input.pipe(BrotliCompress()).pipe(output);
+    input.on('end', () => { resolve('file was compresed\n') });
   });
   return pp;
 }

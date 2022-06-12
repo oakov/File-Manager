@@ -9,9 +9,11 @@ import { comandMv } from './comand_mv.js';
 import { comandRm } from './comand_rm.js';
 import { comandOs } from './comand_os.js';
 import { comandHash } from './comand_hash.js';
+import { comandCompress } from './comand_compress.js';
+import { comandDecompress } from './comand_decompress.js';
 
 export const checkCommand = async (data, currDir) => {
-  const commandArray = ['up', 'cd', 'ls', 'cat', 'add', 'rn', 'cp', 'mv', 'rm', 'os', 'hash'];
+  const commandArray = ['up', 'cd', 'ls', 'cat', 'add', 'rn', 'cp', 'mv', 'rm', 'os', 'hash', 'compress', 'decompress'];
   const [comand, ...params] = data.toString().replace(/\s+/g, ' ').trim().split(' ');
 
   if (!commandArray.includes(comand)) {
@@ -121,6 +123,22 @@ export const checkCommand = async (data, currDir) => {
       return [currDir, 'Invalid input\n'];
     } else {
       return [currDir, await comandHash(currDir, params[0])];
+    }
+  }
+
+  if (comand === 'compress') {
+    if (params.length != 2) {
+      return [currDir, 'Invalid input\n'];
+    } else {
+      return [currDir, await comandCompress(currDir, params[0], params[1])];
+    }
+  }
+
+  if (comand === 'decompress') {
+    if (params.length != 2) {
+      return [currDir, 'Invalid input\n'];
+    } else {
+      return [currDir, await comandDecompress(currDir, params[0], params[1])];
     }
   }
 }
