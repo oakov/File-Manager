@@ -14,8 +14,7 @@ import { comandDecompress } from './comand_decompress.js';
 
 export const checkCommand = async (data, currDir) => {
   const commandArray = ['up', 'cd', 'ls', 'cat', 'add', 'rn', 'cp', 'mv', 'rm', 'os', 'hash', 'compress', 'decompress'];
-  const [comand, ...params] = data.toString().replace(/\s+/g, ' ').trim().split(' ');
-
+  const [comand, ...params] = data.toString().match(/("[^"]+"|[^"\s]+)/g).map((e) => e.replace(/^"([^"]+)"$/, "$1"));
   if (!commandArray.includes(comand)) {
     return [currDir, 'Invalid input\n'];
   }
