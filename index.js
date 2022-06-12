@@ -11,7 +11,6 @@ stdin.on('data', data => {
     currDir = result[0];
     stdout.write(result[1] + `\nYou are currently in ${currDir}\n>`);
   });
-
 });
 
 process.on('SIGINT', () => process.exit(0));
