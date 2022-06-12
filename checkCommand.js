@@ -6,6 +6,7 @@ import { comandAdd } from './comand_add.js';
 import { comandRn } from './comand_rn.js';
 import { comandCp } from './comand_cp.js';
 import { comandMv } from './comand_mv.js';
+import { comandRm } from './comand_rm.js';
 
 export const checkCommand = async (data, currDir) => {
   const commandArray = ['up', 'cd', 'ls', 'cat', 'add', 'rn', 'cp', 'mv', 'rm'];
@@ -94,6 +95,14 @@ export const checkCommand = async (data, currDir) => {
       return [currDir, 'Invalid input\n'];
     } else {
       return [currDir, await comandMv(currDir, params[0], params[1])];
+    }
+  }
+
+  if (comand === 'rm') {
+    if (params.length != 1) {
+      return [currDir, 'Invalid input\n'];
+    } else {
+      return [currDir, await comandRm(currDir, params[0])];
     }
   }
 }

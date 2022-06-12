@@ -30,7 +30,7 @@ export const comandMv = async (currDir, filePath, newDir) => {
     input.pipe(output);
     input.on('end', () => {
       rm(oldFilePath);
-      resolve('file was removed\n')
+      resolve('file was moved\n')
     });
   });
   return pp;
