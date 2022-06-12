@@ -8,9 +8,10 @@ import { comandCp } from './comand_cp.js';
 import { comandMv } from './comand_mv.js';
 import { comandRm } from './comand_rm.js';
 import { comandOs } from './comand_os.js';
+import { comandHash } from './comand_hash.js';
 
 export const checkCommand = async (data, currDir) => {
-  const commandArray = ['up', 'cd', 'ls', 'cat', 'add', 'rn', 'cp', 'mv', 'rm', 'os'];
+  const commandArray = ['up', 'cd', 'ls', 'cat', 'add', 'rn', 'cp', 'mv', 'rm', 'os', 'hash'];
   const [comand, ...params] = data.toString().replace(/\s+/g, ' ').trim().split(' ');
 
   if (!commandArray.includes(comand)) {
