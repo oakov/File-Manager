@@ -11,8 +11,6 @@ export const comandAdd = async (currDir, file) => {
 
   const output = createWriteStream(filePath, { 'flags': 'wx' });
   const pp = new Promise((resolve) => {
-
-    // return 'file created\n';
     output.on('error', () => {
       resolve(`Operation failed\n`);
     });

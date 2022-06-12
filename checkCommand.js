@@ -4,6 +4,7 @@ import { comand_ls } from './comand_ls.mjs';
 import { comandCat } from './comand_cat.js';
 import { comandAdd } from './comand_add.js';
 import { comandRn } from './comand_rn.js';
+import { comandCp } from './comand_cp.js';
 
 export const checkCommand = async (data, currDir) => {
   const commandArray = ['up', 'cd', 'ls', 'cat', 'add', 'rn', 'cp', 'mv', 'rm'];
@@ -76,6 +77,14 @@ export const checkCommand = async (data, currDir) => {
       return [currDir, 'Invalid input\n'];
     } else {
       return [currDir, await comandRn(currDir, params[0], params[1])];
+    }
+  }
+
+  if (comand === 'cp') {
+    if (params.length != 2) {
+      return [currDir, 'Invalid input\n'];
+    } else {
+      return [currDir, await comandCp(currDir, params[0], params[1])];
     }
   }
 }
